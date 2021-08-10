@@ -70,6 +70,7 @@ class MainFragment : Fragment() {
     private fun onCameraShowRationale(request: PermissionRequest) {
         // NOTE: Show a rationale to explain why the permission is needed, e.g. with a dialog.
         // Call proceed() or cancel() on the provided PermissionRequest to continue or abort
+        System.gc()
         showRationaleDialog(R.string.permission_camera_rationale, request)
     }
 
