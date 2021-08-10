@@ -31,7 +31,7 @@ dependencies {
     testCompileAar project(path: ":library", configuration: "default")
 
     testImplementation androidJar()
-    testImplementation files(Jvm.current().getToolsJar())
+    //testImplementation files(Jvm.current().getToolsJar())
     testImplementation "junit:junit:$JUNIT_VERSION"
     testImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
     testImplementation "com.google.testing.compile:compile-testing:$COMPILE_TESTING_VERSION"
