@@ -3,6 +3,7 @@ package permissions.dispatcher.ktx.sample
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -12,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import permissions.dispatcher.PermissionRequest
@@ -22,7 +22,7 @@ import permissions.dispatcher.ktx.constructPermissionsRequest
 class MainFragment : Fragment() {
     private lateinit var permissionsRequester: PermissionsRequester
     private lateinit var fileManagerRequester: PermissionsRequester
-    private var permissionRequest : PermissionRequest? = null
+    private var permissionRequest: PermissionRequest? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,8 +55,13 @@ class MainFragment : Fragment() {
         }
 
         setFragmentResultListener(PermissionDialogFragment.RESULT_KEY_POSITIVE) { _, _ ->
-            permissionRequest?.proceed()
-            permissionRequest = null
+            val scaledBitmap: Bitmap = Bitmap.createBitmap( 5000, 5000, Bitmap.Config.ARGB_8888)
+            scaledBitmap.recycle()
+            System.gc()
+            requireView().postDelayed({
+                permissionRequest?.proceed()
+                permissionRequest = null
+            }, 1000)
         }
 
         setFragmentResultListener(PermissionDialogFragment.RESULT_KEY_NEGATIVE) { _, _ ->
